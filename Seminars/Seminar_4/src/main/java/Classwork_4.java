@@ -10,12 +10,19 @@ public class Classwork_4 {
         getInfo(database);
         System.out.println("Неотсортированный список:");
         printDatabase(database);
-        database = sorting(database);
+
         System.out.println();
-        System.out.println("Отсортированный список:");
-        printDatabase(database);
-
-
+        System.out.println("Хотите отсортировать список? 1 - 'да', 2 - 'нет'");
+        Scanner scanner = new Scanner(System.in);
+        int userInput = scanner.nextInt();
+        if (userInput == 1){
+            database = sorting(database);
+            System.out.println();
+            System.out.println("Отсортированный список:");
+            printDatabase(database);
+        } else {
+            System.out.println("До свидания!");
+        }
     }
 
     // Метод для формирования базы до тех пор, пока пользователь на скажет "нет"
