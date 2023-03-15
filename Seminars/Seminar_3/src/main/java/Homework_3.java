@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Homework_3 {
     public static void main(String[] args) {
@@ -23,6 +20,31 @@ public class Homework_3 {
         }
         System.out.println(Arrays.toString(array));
         System.out.println(Arrays.toString(mergeSort(array)));
+
+        System.out.println();
+
+        ArrayList<Integer> list03 = new ArrayList<>();
+        ArrayList<Integer> list04 = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list03.add(new Random().nextInt(5));
+            list04.add(new Random().nextInt(5));
+        }
+        System.out.println(unionLists(list03,list04));
+
+        System.out.println();
+
+        // Сравнить время работы пятого и шестого пунктов.
+        long startSimpleList = System.currentTimeMillis();
+        addNullToList();
+        long endSimpleList = System.currentTimeMillis();
+        System.out.print("Время для List: ");
+        System.out.println(endSimpleList - startSimpleList);
+
+        long startLinkedList = System.currentTimeMillis();
+        addNullToLinkedList();
+        long endLinkedList = System.currentTimeMillis();
+        System.out.print("Время для LinkedList: ");
+        System.out.println(endLinkedList - startLinkedList);
 
     }
 
@@ -92,4 +114,41 @@ public class Homework_3 {
         System.out.println("Среднее арифметическое значение списка: " + average);
     }
 
+    // Дано два целочисленных списка, объеденить их не допуская элементы второго списка уже встречающиеся в первом.
+    static ArrayList unionLists(ArrayList list01,ArrayList list02){
+        System.out.println(list01);
+        System.out.println(list02);
+        System.out.println("-".repeat(10));
+        Iterator i = list02.iterator();
+        while (i.hasNext()){
+            if (list01.contains(i.next()) == false){
+                list01.add(i.next());
+            }
+        }
+        return list01;
+    }
+
+    // Создать ArrayList<Integer> и добавить нулевым эллементом ноль 10000 раз.
+    static ArrayList addNullToList(){
+        ArrayList<Integer> list01 = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            list01.add(new Random().nextInt(5));
+        }
+        for (int i = 0; i < 10000; i++) {
+            list01.add(0, 0);
+        }
+        return list01;
+
+
+    // Создать LinkedList<Integer> и добавить нулевым эллементом ноль 10000 раз.
+    }static LinkedList addNullToLinkedList(){
+        LinkedList<Integer> list01 = new LinkedList<>();
+        for (int i = 0; i < 3; i++) {
+            list01.add(new Random().nextInt(5));
+        }
+        for (int i = 0; i < 10000; i++) {
+            list01.addFirst(0);
+        }
+        return list01;
+    }
 }
