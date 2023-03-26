@@ -1,0 +1,7 @@
+package org.example.units;
+
+public class Peasant extends BaseHero{
+    public Peasant(String name, int x, int y) {
+        super(8, name, x, y, 6, new int[]{1, 4}, 4, "Крестьянин");
+    }
+}
