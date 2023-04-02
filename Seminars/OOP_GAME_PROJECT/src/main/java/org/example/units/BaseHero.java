@@ -1,7 +1,11 @@
 package org.example.units;
 
 
-public class BaseHero {
+import org.example.Names;
+
+import java.util.Random;
+
+public abstract class BaseHero implements GameInterface{
     public static void main(String[]args){}
     public String name;
     protected String class_name;
@@ -28,5 +32,12 @@ public class BaseHero {
         this.class_name = class_name;
         this.pace = pace;
     }
+
+    @Override
+    public void step() {}
+
+    @Override
+    public String getInfo() {return class_name;}
+
 
 }

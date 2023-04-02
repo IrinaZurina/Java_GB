@@ -1,6 +1,6 @@
 package org.example.weapons;
 
-public class BaseWeapon {
+public abstract class BaseWeapon {
     public static void main(String[] args) {}
     protected int [] damage;
     protected int actionRange; //радиус действия
