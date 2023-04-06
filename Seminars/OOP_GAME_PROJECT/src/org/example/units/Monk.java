@@ -6,7 +6,7 @@ public class Monk extends Magic{
     // protected ArrayList<Spell> spells;
 
     public Monk(String name, int y) {
-        super(8, name, 9, y, 7, new int[] {1, 8}, 1, "Монах", "light", 20, 80);
+        super(8, name, 9, y, 7, new int[] {1, 8}, 1, "Монах", 2, 20, 80);
 
 //        spells.add(new Attack(new int[]{1, 8}));
 //        spells.add(new Defend(new int[]{2, 6}));

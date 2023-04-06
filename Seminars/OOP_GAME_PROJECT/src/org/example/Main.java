@@ -4,25 +4,26 @@ import org.example.units.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-import org.example.Coordinates;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<BaseHero> darkSide = createDarkTeam();
-        ArrayList<BaseHero> brightSide = createLightTeam();
+        ArrayList<BaseHero> TeamOne = createTeamOne();
+        ArrayList<BaseHero> TeamTwo = createTeamTwo();
 
-        System.out.println("Bright side:");
-        for (BaseHero hero: brightSide) {
+        System.out.println("Team Two:");
+        for (BaseHero hero: TeamTwo) {
             System.out.println(hero.getInfo());
         }
+
 
         System.out.println();
 
-        System.out.println("Dark side:");
-        for (BaseHero hero: darkSide) {
+        System.out.println("Team One:");
+        for (BaseHero hero: TeamOne) {
             System.out.println(hero.getInfo());
         }
 
+        TeamTwo.get(0).findClosestEnemy(TeamOne);
         SpellBook spell = SpellBook.values()[new Random().nextInt(SpellBook.values().length)];
     }
 
@@ -30,48 +31,48 @@ public class Main {
         return Names.values()[new Random().nextInt(Names.values().length)].toString();}
 
 
-    private static ArrayList<BaseHero> createDarkTeam(){
-        ArrayList<BaseHero> darkSide = new ArrayList<>();
+    private static ArrayList<BaseHero> createTeamOne(){
+        ArrayList<BaseHero> teamOne = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            String darkHero = DarkSide.values()[new Random().nextInt(DarkSide.values().length)].toString();
-            switch (darkHero) {
+            String TeamOneHero = TeamOne.values()[new Random().nextInt(TeamOne.values().length)].toString();
+            switch (TeamOneHero) {
                 case ("spearman"):
-                    darkSide.add(new Spearman(getName(), i));
+                    teamOne.add(new Spearman(getName(), i));
                     break;
                 case ("wizard"):
-                    darkSide.add(new Wizard(getName(), i));
+                    teamOne.add(new Wizard(getName(), i));
                     break;
                 case ("sniper"):
-                    darkSide.add(new Sniper(getName(), i));
+                    teamOne.add(new Sniper(getName(), i));
                     break;
                 default:
-                    darkSide.add(new Peasant(getName(), 0, i));
+                    teamOne.add(new Peasant(getName(), 0, i));
                     break;
             }
         }
-        return darkSide;
+        return teamOne;
     }
 
-    private static ArrayList<BaseHero> createLightTeam(){
-        ArrayList<BaseHero> brightSide = new ArrayList<>();
+    private static ArrayList<BaseHero> createTeamTwo(){
+        ArrayList<BaseHero> TeamTwo = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            String brightHero = BrightSide.values()[new Random().nextInt(BrightSide.values().length)].toString();
-            switch (brightHero) {
+            String teamTwoHero = org.example.TeamTwo.values()[new Random().nextInt(org.example.TeamTwo.values().length)].toString();
+            switch (teamTwoHero) {
                 case ("thief"):
-                    brightSide.add(new Thief(getName(), i));
+                    TeamTwo.add(new Thief(getName(), i));
                     break;
                 case ("monk"):
-                    brightSide.add(new Monk(getName(), i));
+                    TeamTwo.add(new Monk(getName(), i));
                     break;
                 case ("crossbowman"):
-                    brightSide.add(new Crossbowman(getName(), i));
+                    TeamTwo.add(new Crossbowman(getName(), i));
                     break;
                 default:
-                    brightSide.add(new Peasant(getName(), 9, i));
+                    TeamTwo.add(new Peasant(getName(), 9, i));
                     break;
             }
         }
-        return brightSide;
+        return TeamTwo;
     }
 
 

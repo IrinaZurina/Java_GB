@@ -8,5 +8,5 @@ public interface Coordinates {
 
     int[] getSelfPosition();
 
-    int[] findClosestEnemy(BaseHero hero, ArrayList<BaseHero> team);
+    BaseHero findClosestEnemy(ArrayList<BaseHero> team);
 }

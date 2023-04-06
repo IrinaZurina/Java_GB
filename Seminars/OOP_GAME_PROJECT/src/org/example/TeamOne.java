@@ -1,5 +1,5 @@
 package org.example;
 
-public enum DarkSide {
+public enum TeamOne {
     peasant, wizard, sniper, spearman;
 }

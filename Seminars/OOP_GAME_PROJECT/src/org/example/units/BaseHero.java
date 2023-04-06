@@ -16,7 +16,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     protected int armor; // броня
     protected int[] damage; //здесь должны лежать мин и макс наносимый урон при ручном бое
     protected int pace;
-    protected String side;
+    protected int team;
     //protected Weapons weapon;
     @Override
     public String toString() {
@@ -24,7 +24,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     }
 
     // Инициализация
-    public BaseHero(float hp, String name, int x, int y, int armor, int[] damage, int pace, String class_name, String side){
+    public BaseHero(float hp, String name, int x, int y, int armor, int[] damage, int pace, String class_name, int team){
         this.hp = this.max_hp = hp;
         this.name = name;
         this.x = x;
@@ -33,11 +33,11 @@ public abstract class BaseHero implements GameInterface, Coordinates {
         this.damage = damage;
         this.class_name = class_name;
         this.pace = pace;
-        this.side = side;
+        this.team = team;
     }
 
     @Override
-    public void step() {}
+    public void step(ArrayList<BaseHero> enemyTeam) {}
 
     @Override
     public String getInfo() {return name + " - " + class_name + " - " + getSelfPosition()[0] + ";" + getSelfPosition()[1];}
@@ -49,18 +49,25 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     }
 
     @Override
-    public int[] findClosestEnemy(BaseHero hero, ArrayList<BaseHero> team) {
-        int[] enemyPosition = new int[2];
+    public BaseHero findClosestEnemy(ArrayList<BaseHero> team) {
+        BaseHero closestEnemy = team.get(0);
         double minDistance = Math.sqrt(81 + 81);
         for (BaseHero enemy: team) {
-            double distance = Math.sqrt(Math.pow(enemy.x - hero.x, 2) + Math.pow(enemy.y - hero.y, 2));
+            double distance = Math.sqrt(Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2));
             if (distance < minDistance) {
                 minDistance = distance;
-                enemyPosition[0] = enemy.x;
-                enemyPosition[1] = enemy.y;
+                closestEnemy = enemy;
             }
         }
-        return enemyPosition;
+        System.out.println("Ближайший враг - " + closestEnemy.name + ", " + closestEnemy.class_name + ", " +
+                "Здоровье " + closestEnemy.hp);
+        return closestEnemy;
+    }
+
+    @Override
+    public void getDamage(float damage) {
+        if (this.hp - damage > 0) {this.hp -= damage;}
+
     }
 
     public static void getTeamPositions(ArrayList<BaseHero> team) {
@@ -68,5 +75,6 @@ public abstract class BaseHero implements GameInterface, Coordinates {
             System.out.println(hero.getSelfPosition()[0] + ";" + hero.getSelfPosition()[1]);
         }
     }
+
 
 }

@@ -5,8 +5,8 @@ public abstract class Magic extends BaseHero{
     protected int maxMana;
     protected int accuracy;
 
-    public Magic(float hp, String name, int x, int y, int armor, int[] damage, int pace, String class_name, String side, int mana, int accuracy) {
-        super(hp, name, x, y, armor, damage, pace, class_name, side);
+    public Magic(float hp, String name, int x, int y, int armor, int[] damage, int pace, String class_name, int team, int mana, int accuracy) {
+        super(hp, name, x, y, armor, damage, pace, class_name, team);
         this.mana = this.maxMana = mana;
         this.accuracy = accuracy;
     }
