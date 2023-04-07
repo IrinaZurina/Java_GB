@@ -13,10 +13,11 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     public int y;
     protected float hp;
     protected float max_hp;
-    protected int armor; // броня
+    protected float armor; // броня
     protected int[] damage; //здесь должны лежать мин и макс наносимый урон при ручном бое
     protected int pace;
     protected int team;
+    protected String state;
     //protected Weapons weapon;
     @Override
     public String toString() {
@@ -24,7 +25,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     }
 
     // Инициализация
-    public BaseHero(float hp, String name, int x, int y, int armor, int[] damage, int pace, String class_name, int team){
+    public BaseHero(float hp, String name, int x, int y, float armor, int[] damage, int pace, String class_name, int team){
         this.hp = this.max_hp = hp;
         this.name = name;
         this.x = x;
@@ -34,13 +35,15 @@ public abstract class BaseHero implements GameInterface, Coordinates {
         this.class_name = class_name;
         this.pace = pace;
         this.team = team;
+        this.state = "standBy";
     }
 
-    @Override
-    public void step(ArrayList<BaseHero> enemyTeam) {}
 
     @Override
-    public String getInfo() {return name + " - " + class_name + " - " + getSelfPosition()[0] + ";" + getSelfPosition()[1];}
+    public void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam) {}
+
+    @Override
+    public String getInfo() {return name + " - " + class_name + " - hp " + hp + " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];}
 
     @Override
     public int[] getSelfPosition() {
@@ -59,14 +62,25 @@ public abstract class BaseHero implements GameInterface, Coordinates {
                 closestEnemy = enemy;
             }
         }
-        System.out.println("Ближайший враг - " + closestEnemy.name + ", " + closestEnemy.class_name + ", " +
-                "Здоровье " + closestEnemy.hp);
+        System.out.println("Ближайший враг - " + closestEnemy.name + ", " + closestEnemy.class_name + ", " + "Броня " +
+                closestEnemy.armor + " Здоровье " + closestEnemy.hp);
         return closestEnemy;
     }
 
     @Override
     public void getDamage(float damage) {
-        if (this.hp - damage > 0) {this.hp -= damage;}
+        if (this.armor > 0) {
+            if (this.armor - damage >= 0) {
+                this.armor -= damage;
+            } else {
+                this.hp -= damage - this.armor;
+                this.armor = 0;
+            }
+        }
+        else {
+            if (this.hp - damage > 0) {this.hp -= damage;}
+            else{this.hp = 0;}
+            }
 
     }
 
