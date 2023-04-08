@@ -2,6 +2,7 @@ package org.example.units;
 
 import org.example.Names;
 import org.example.TeamOne;
+import org.example.TeamTwo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +58,13 @@ public interface GameInterface {
         return TeamTwo;
     }
 
+    static ArrayList<BaseHero> uniteTeams(ArrayList<BaseHero> TeamOne, ArrayList<BaseHero> TeamTwo){
+        ArrayList<BaseHero> allTeam = new ArrayList<>();
+        TeamOne.forEach(n -> allTeam.add(n));
+        TeamTwo.forEach(n -> allTeam.add(n));
+        return allTeam;
+    }
+
     static ArrayList<BaseHero> sortTeam(ArrayList<BaseHero> team){
         //int minPace = team.get(0).pace;
         for (int j = 0; j < team.size(); j++) {
@@ -72,6 +80,7 @@ public interface GameInterface {
 
     void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam);
     String getInfo();
+    float getHp();
     void getDamage(float damage);
 
     static void LetTheGameStart(ArrayList<BaseHero> TeamOne, ArrayList<BaseHero> TeamTwo){
@@ -92,8 +101,12 @@ public interface GameInterface {
                 hero.step(TeamOne, TeamTwo);
                 System.out.println();
             }
-            TeamOne.forEach(n -> n.state = "standBy");
-            TeamTwo.forEach(n -> n.state = "standBy");
+            TeamOne.forEach(n -> {if (!n.state.equals("dead")) n.state = "standBy";});
+            TeamTwo.forEach(n -> {if (!n.state.equals("dead")) n.state = "standBy";});
+
+            sortTeam(TeamOne);
+            sortTeam(TeamTwo);
+
             round++;
         }
     }

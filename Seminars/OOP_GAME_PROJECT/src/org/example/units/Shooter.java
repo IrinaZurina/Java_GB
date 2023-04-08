@@ -20,7 +20,7 @@ public abstract class Shooter extends BaseHero{
     protected void shoot(BaseHero enemy){
         enemy.getDamage(new Random().nextInt(this.damage[0], this.damage[1]) * accuracy/100);
         System.out.println("Shoot!");
-        System.out.println(enemy.name + ", " + enemy.class_name + ": Броня " + enemy.armor + " Здоровье " + enemy.hp);
+        System.out.println(enemy.getInfo());
         this.state = "busy";
     }
 

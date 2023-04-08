@@ -4,9 +4,10 @@ import org.example.units.*;
 import java.util.ArrayList;
 
 public class Main {
+    public static ArrayList<BaseHero> TeamOne = GameInterface.sortTeam(GameInterface.createTeamOne());
+    public static ArrayList<BaseHero> TeamTwo = GameInterface.sortTeam(GameInterface.createTeamTwo());
+    public static ArrayList<BaseHero> allTeam = GameInterface.uniteTeams(TeamOne, TeamTwo);
     public static void main(String[] args) {
-        ArrayList<BaseHero> TeamOne = GameInterface.sortTeam(GameInterface.createTeamOne());
-        ArrayList<BaseHero> TeamTwo = GameInterface.sortTeam(GameInterface.createTeamTwo());
 
         System.out.println("Team One:");
         TeamOne.forEach(n -> System.out.println(n.getInfo()));

@@ -43,7 +43,13 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     public void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam) {}
 
     @Override
-    public String getInfo() {return name + " - " + class_name + " - hp " + hp + " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];}
+    public String getInfo() {return name + " - " + class_name + " - hp|броня " + hp + "|" + armor +
+            " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];}
+
+    @Override
+    public float getHp() {
+        return hp;
+    }
 
     @Override
     public int[] getSelfPosition() {
@@ -62,8 +68,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
                 closestEnemy = enemy;
             }
         }
-        System.out.println("Ближайший враг - " + closestEnemy.name + ", " + closestEnemy.class_name + ", " + "Броня " +
-                closestEnemy.armor + " Здоровье " + closestEnemy.hp);
+        System.out.println("Ближайший враг - " + closestEnemy.getInfo());
         return closestEnemy;
     }
 
@@ -79,7 +84,9 @@ public abstract class BaseHero implements GameInterface, Coordinates {
         }
         else {
             if (this.hp - damage > 0) {this.hp -= damage;}
-            else{this.hp = 0;}
+            else{
+                this.hp = 0;
+                this.state = "dead";}
             }
 
     }
