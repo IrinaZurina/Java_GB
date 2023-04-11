@@ -19,10 +19,10 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     protected int team;
     protected String state;
     //protected Weapons weapon;
-    @Override
-    public String toString() {
-        return name + " " + hp + " " + armor + " " + class_name;
-    }
+//    @Override
+//    public String toString() {
+//        return name + " " + hp + " " + armor + " " + class_name;
+//    }
 
     // Инициализация
     public BaseHero(float hp, String name, int x, int y, float armor, int[] damage, int pace, String class_name, int team){
@@ -68,7 +68,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
                 closestEnemy = enemy;
             }
         }
-        System.out.println("Ближайший враг - " + closestEnemy.getInfo());
+        //System.out.println("Ближайший враг - " + closestEnemy.getInfo());
         return closestEnemy;
     }
 

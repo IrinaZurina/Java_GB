@@ -6,11 +6,14 @@ import java.util.Collections;
 public class View {
     private static int step = 1;
     private static final int[] l = {0};
-    // 10-12 строки - рисование поля
-    private static final String top10 = formatDiv("a") + String.join("", Collections.nCopies(9, formatDiv("-b"))) + formatDiv("-c");
-    private static final String midl10 = formatDiv("d") + String.join("", Collections.nCopies(9, formatDiv("-e"))) + formatDiv("-f");
-    private static final String bottom10 = formatDiv("g") + String.join("", Collections.nCopies(9, formatDiv("-h"))) + formatDiv("-i");
-    private static void tabSetter(int cnt, int max){  // сколько раз надо поставить табы
+    // 10-15 строки - рисование поля
+    private static final String top10 = formatDiv("a") + String.join("",
+            Collections.nCopies(9, formatDiv("-b"))) + formatDiv("-c");
+    private static final String midl10 = formatDiv("d") + String.join("",
+            Collections.nCopies(9, formatDiv("-e"))) + formatDiv("-f");
+    private static final String bottom10 = formatDiv("g") + String.join("",
+            Collections.nCopies(9, formatDiv("-h"))) + formatDiv("-i");
+    private static void tabSetter(int cnt, int max){  // сколько раз надо поставить табы для выравнивания
         int dif = max - cnt + 2;
         if (dif>0) System.out.printf("%" + dif + "s", ":\t"); else System.out.print(":\t");
     }
@@ -35,8 +38,10 @@ public class View {
                     out = "|" + (AnsiColors.ANSI_RED + human.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
                     break;
                 }
-                if (Main.TeamOne.contains(human)) out = "|" + (AnsiColors.ANSI_GREEN + human.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
-                if (Main.TeamTwo.contains(human)) out = "|" + (AnsiColors.ANSI_BLUE + human.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
+                if (Main.TeamOne.contains(human)) out = "|" + (AnsiColors.ANSI_GREEN +
+                        human.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
+                if (Main.TeamTwo.contains(human)) out = "|" + (AnsiColors.ANSI_BLUE +
+                        human.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
                 break;
             }
         }
@@ -49,40 +54,40 @@ public class View {
             System.out.print(AnsiColors.ANSI_RED + "Step:" + step + AnsiColors.ANSI_RESET);
         }
         step++;
-        Main.allTeam.forEach((v) -> l[0] = Math.max(l[0], v.toString().length()));
+        Main.allTeam.forEach((v) -> l[0] = Math.max(l[0], v.getInfo().length())); // нужно, чтобы tabsetter затем выровнял информацию о командах
         System.out.print("_".repeat(l[0]*2));
         System.out.println("");
         System.out.print(top10 + "    ");
-        System.out.print("Blue side");
+        System.out.print("Team One");
         //for (int i = 0; i < l[0]-9; i++)
-        System.out.print(" ".repeat(l[0]-9));
-        System.out.println(":\tGreen side");
-        for (int i = 1; i < 11; i++) {
-            System.out.print(getChar(1, i));
+        System.out.print(" ".repeat(l[0]-8));
+        System.out.println(":\tTeam Two");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(getChar(0, i));
         }
         System.out.print("|    ");
-        System.out.print(Main.TeamTwo.get(0));
-        tabSetter(Main.TeamTwo.get(0).toString().length(), l[0]);
-        System.out.println(Main.TeamOne.get(0));
+        System.out.print(Main.TeamOne.get(0).getInfo());
+        tabSetter(Main.TeamOne.get(0).getInfo().length(), l[0]);
+        System.out.println(Main.TeamTwo.get(0).getInfo());
         System.out.println(midl10);
 
-        for (int i = 2; i < 10; i++) {
-            for (int j = 1; j < 11; j++) {
+        for (int i = 1; i < 9; i++) {
+            for (int j = 0; j < 10; j++) {
                 System.out.print(getChar(i, j));
             }
             System.out.print("|    ");
-            System.out.print(Main.TeamTwo.get(i-1));
-            tabSetter(Main.TeamTwo.get(i-1).toString().length(), l[0]);
-            System.out.println(Main.TeamOne.get(i-1));
+            System.out.print(Main.TeamOne.get(i).getInfo());
+            tabSetter(Main.TeamOne.get(i).getInfo().length(), l[0]);
+            System.out.println(Main.TeamTwo.get(i).getInfo());
             System.out.println(midl10);
         }
-        for (int j = 1; j < 11; j++) {
-            System.out.print(getChar(10, j));
+        for (int j = 0; j < 10; j++) {
+            System.out.print(getChar(9, j));
         }
         System.out.print("|    ");
-        System.out.print(Main.TeamTwo.get(9));
-        tabSetter(Main.TeamTwo.get(9).toString().length(), l[0]);
-        System.out.println(Main.TeamOne.get(9));
+        System.out.print(Main.TeamOne.get(9).getInfo());
+        tabSetter(Main.TeamOne.get(9).getInfo().length(), l[0]);
+        System.out.println(Main.TeamTwo.get(9).getInfo());
         System.out.println(bottom10);
     }
 }

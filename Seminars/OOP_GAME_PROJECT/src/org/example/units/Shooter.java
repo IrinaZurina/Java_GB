@@ -11,16 +11,17 @@ public abstract class Shooter extends BaseHero{
     protected int arrows;
     protected int maxArrows;
     protected int accuracy;
-    public Shooter(float hp, String name, int x, int y, float armor, int[] damage, int pace, String class_name, int team, int arrows, int accuracy) {
+    public Shooter(float hp, String name, int x, int y, float armor, int[] damage, int pace,
+                   String class_name, int team, int arrows, int accuracy) {
         super(hp, name, x, y, armor, damage, pace, class_name, team);
         this.arrows = this.maxArrows = arrows;
         this.accuracy = accuracy;
     }
 
     protected void shoot(BaseHero enemy){
-        enemy.getDamage(new Random().nextInt(this.damage[0], this.damage[1]) * accuracy/100);
-        System.out.println("Shoot!");
-        System.out.println(enemy.getInfo());
+        enemy.getDamage((float) (new Random().nextInt(this.damage[0], this.damage[1]) * accuracy) /100);
+//        System.out.println("Shoot!");
+//        System.out.println(enemy.getInfo());
         this.state = "busy";
     }
 
@@ -37,6 +38,6 @@ public abstract class Shooter extends BaseHero{
                     break;}
             }
         }
-        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");
+//        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");
     }
 }
