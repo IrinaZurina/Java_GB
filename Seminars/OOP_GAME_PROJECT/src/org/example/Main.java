@@ -28,8 +28,8 @@ public class Main {
             View.view();
             input.nextLine();
             for (BaseHero human: allTeam) {
-                if (TeamOne.contains(human)) human.step(TeamOne, TeamTwo);
-                else human.step(TeamTwo, TeamOne);
+                if (TeamOne.contains(human)) human.step(TeamTwo, TeamOne);
+                else human.step(TeamOne, TeamTwo);
             }
         }
 

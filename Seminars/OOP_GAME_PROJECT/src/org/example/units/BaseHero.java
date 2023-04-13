@@ -63,7 +63,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
         double minDistance = Math.sqrt(81 + 81);
         for (BaseHero enemy: team) {
             double distance = Math.sqrt(Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2));
-            if (distance < minDistance) {
+            if (distance < minDistance && enemy.hp > 0) {
                 minDistance = distance;
                 closestEnemy = enemy;
             }

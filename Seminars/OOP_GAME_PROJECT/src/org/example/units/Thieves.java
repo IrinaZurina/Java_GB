@@ -1,5 +1,10 @@
 package org.example.units;
 
+import org.example.Main;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public abstract class Thieves extends BaseHero{
     protected int accuracy;
     protected int stealth;
@@ -8,4 +13,54 @@ public abstract class Thieves extends BaseHero{
         this.stealth = stealth;
         this.accuracy = accuracy;
     }
+    protected void strike(BaseHero enemy) {
+        enemy.getDamage((float) (new Random().nextInt(this.damage[0], this.damage[1]) * accuracy) /100);
+        this.state = "busy";
+    }
+
+    protected boolean checkIfEmpty(int x, int y, ArrayList<BaseHero> AllTeam){
+        boolean empty = true;
+        for (BaseHero hero: AllTeam) {
+            if (hero.x == x && hero.y == y) {
+                empty = false;
+                break;
+            }
+        }
+        return empty;
+    }
+
+    protected int[] chooseDirection(BaseHero enemy){
+        int [] cellToChoose = new int[2];
+        double minDistance = Math.sqrt(Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2));
+        ArrayList<int []> newPositions = new ArrayList<>();
+        if (this.team == 1) {
+            if (this.x + 1 < 10) newPositions.add(new int[]{this.x + 1, this.y});
+        }
+        else {
+            if (this.x - 1 > -1) newPositions.add(new int[]{this.x - 1, this.y});
+        }
+        if (this.y + 1 < 10) newPositions.add(new int[]{this.x, this.y + 1});
+        if (this.y - 1 > -1) newPositions.add(new int[]{this.x, this.y - 1});
+        for (int[] pos: newPositions) {
+            if (checkIfEmpty(pos[0], pos[1], Main.allTeam) &&
+                    Math.sqrt(Math.pow(enemy.x - pos[0], 2) + Math.pow(enemy.y - pos[1], 2)) < minDistance) {
+                cellToChoose[0] = pos[0];
+                cellToChoose[1] = pos[1];
+            }
+        }
+        return cellToChoose;
+    }
+    @Override
+    public void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam) {
+        if (this.hp > 0){
+            BaseHero closestEnemy = findClosestEnemy(enemyTeam);
+            if (Math.sqrt(Math.pow(closestEnemy.x - this.x, 2) + Math.pow(closestEnemy.y - this.y, 2)) < 2) strike(closestEnemy);
+            else {
+                this.x = chooseDirection(closestEnemy)[0];
+                this.y = chooseDirection(closestEnemy)[1];
+            }
+        }
+    }
+//        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");
 }
+

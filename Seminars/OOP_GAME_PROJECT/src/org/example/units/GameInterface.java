@@ -19,9 +19,9 @@ public interface GameInterface {
         for (int i = 0; i < 10; i++) {
             String TeamOneHero = TeamOne.values()[new Random().nextInt(TeamOne.values().length)].toString();
             switch (TeamOneHero) {
-                case ("spearman") -> teamOne.add(new Spearman(getName(), i));
-                case ("wizard") -> teamOne.add(new Wizard(getName(), i));
-                case ("sniper") -> teamOne.add(new Sniper(getName(), i));
+                case ("spearman") -> teamOne.add(new Spearman('\u2694' + getName(), i));
+                case ("wizard") -> teamOne.add(new Wizard('\u058D' + getName(), i));
+                case ("sniper") -> teamOne.add(new Sniper('\u21A3' + getName(), i));
                 default -> teamOne.add(new Peasant(getName(), 0, i));
             }
         }
@@ -34,9 +34,9 @@ public interface GameInterface {
             String teamTwoHero = org.example.TeamTwo.values()
                     [new Random().nextInt(org.example.TeamTwo.values().length)].toString();
             switch (teamTwoHero) {
-                case ("thief") -> TeamTwo.add(new Thief(getName(), i));
-                case ("monk") -> TeamTwo.add(new Monk(getName(), i));
-                case ("crossbowman") -> TeamTwo.add(new Crossbowman(getName(), i));
+                case ("thief") -> TeamTwo.add(new Thief('\u2694' + getName(), i));
+                case ("monk") -> TeamTwo.add(new Monk('\u058D' + getName(), i));
+                case ("crossbowman") -> TeamTwo.add(new Crossbowman('\u21A3' + getName(), i));
                 default -> TeamTwo.add(new Peasant(getName(), 9, i));
             }
         }

@@ -29,7 +29,7 @@ public abstract class Shooter extends BaseHero{
     public void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam) {
         if (this.hp > 0 && this.arrows > 0){
             BaseHero closestEnemy = findClosestEnemy(enemyTeam);
-            if (closestEnemy.hp > 0) shoot(closestEnemy);
+            shoot(closestEnemy);
             this.arrows -= 1;
             for (BaseHero hero: friendlyTeam) {
                 if (hero.class_name.equals("Крестьянин") && hero.hp > 0 && hero.state.equals("standBy")) {
