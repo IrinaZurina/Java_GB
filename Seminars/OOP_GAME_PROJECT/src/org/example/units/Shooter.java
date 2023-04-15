@@ -18,6 +18,12 @@ public abstract class Shooter extends BaseHero{
         this.accuracy = accuracy;
     }
 
+    @Override
+    public String getInfo() {
+        return name + " - " + class_name + " - hp|броня " + hp + "|" + armor + " Стрелы:" + arrows +
+                " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];
+    }
+
     protected void shoot(BaseHero enemy){
         enemy.getDamage((float) (new Random().nextInt(this.damage[0], this.damage[1]) * accuracy) /100);
 //        System.out.println("Shoot!");
@@ -32,10 +38,13 @@ public abstract class Shooter extends BaseHero{
             shoot(closestEnemy);
             this.arrows -= 1;
             for (BaseHero hero: friendlyTeam) {
-                if (hero.class_name.equals("Крестьянин") && hero.hp > 0 && hero.state.equals("standBy")) {
-                    this.arrows ++;
-                    hero.state = "busy";
-                    break;}
+                if (hero.class_name.equals("Крестьянин")){
+                    if(hero.hp > 0 && hero.state.equals("standBy")) {
+                        this.arrows ++;
+                        hero.state = "busy";
+                        break;
+                    }
+                }
             }
         }
 //        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");

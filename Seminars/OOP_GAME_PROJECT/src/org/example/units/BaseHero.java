@@ -83,7 +83,9 @@ public abstract class BaseHero implements GameInterface, Coordinates {
             }
         }
         else {
-            if (this.hp - damage > 0) {this.hp -= damage;}
+            if (this.hp - damage > 0) {
+                this.hp -= damage;
+            }
             else{
                 this.hp = 0;
                 this.state = "dead";}
@@ -97,5 +99,12 @@ public abstract class BaseHero implements GameInterface, Coordinates {
         }
     }
 
-
+    public static boolean checkTeamHp(ArrayList<BaseHero> team){
+        float sumHp = 0;
+        for (BaseHero hero: team) {
+            sumHp += hero.hp;
+        }
+        if (sumHp > 0) return true;
+        else return false;
+    }
 }

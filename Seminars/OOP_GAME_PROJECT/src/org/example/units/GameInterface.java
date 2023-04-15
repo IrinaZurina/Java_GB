@@ -3,10 +3,12 @@ package org.example.units;
 import org.example.Names;
 import org.example.TeamOne;
 import org.example.TeamTwo;
+import org.example.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 public interface GameInterface {
 
@@ -19,7 +21,7 @@ public interface GameInterface {
         for (int i = 0; i < 10; i++) {
             String TeamOneHero = TeamOne.values()[new Random().nextInt(TeamOne.values().length)].toString();
             switch (TeamOneHero) {
-                case ("spearman") -> teamOne.add(new Spearman('\u2694' + getName(), i));
+                case ("spearman") -> teamOne.add(new Spearman('\u2020' + getName(), i));
                 case ("wizard") -> teamOne.add(new Wizard('\u058D' + getName(), i));
                 case ("sniper") -> teamOne.add(new Sniper('\u21A3' + getName(), i));
                 default -> teamOne.add(new Peasant(getName(), 0, i));
@@ -34,7 +36,7 @@ public interface GameInterface {
             String teamTwoHero = org.example.TeamTwo.values()
                     [new Random().nextInt(org.example.TeamTwo.values().length)].toString();
             switch (teamTwoHero) {
-                case ("thief") -> TeamTwo.add(new Thief('\u2694' + getName(), i));
+                case ("thief") -> TeamTwo.add(new Thief('\u2020' + getName(), i));
                 case ("monk") -> TeamTwo.add(new Monk('\u058D' + getName(), i));
                 case ("crossbowman") -> TeamTwo.add(new Crossbowman('\u21A3' + getName(), i));
                 default -> TeamTwo.add(new Peasant(getName(), 9, i));
@@ -68,31 +70,58 @@ public interface GameInterface {
     float getHp();
     void getDamage(float damage);
 
+
+
     static void LetTheGameStart(ArrayList<BaseHero> TeamOne, ArrayList<BaseHero> TeamTwo){
-        int round = 1;
-        while (round == 1) {  // ПОМЕНЯТЬ УСЛОВИЕ ВЫХОДА ИЗ ИГРЫ!!!
-            System.out.println("----------ROUND " + round + "----------");
-            System.out.println("-----Team 1-----");
-            for (BaseHero hero : TeamOne) {
-                System.out.print(hero.name + ": ");
-                hero.step(TeamTwo, TeamOne);
-                System.out.println();
+//        int round = 1;
+//        while (round == 1) {  // ПОМЕНЯТЬ УСЛОВИЕ ВЫХОДА ИЗ ИГРЫ!!!
+//            System.out.println("----------ROUND " + round + "----------");
+//            System.out.println("-----Team 1-----");
+//            for (BaseHero hero : TeamOne) {
+//                System.out.print(hero.name + ": ");
+//                hero.step(TeamTwo, TeamOne);
+//                System.out.println();
+//            }
+//
+//            System.out.println();
+//            System.out.println("-----Team 2-----");
+//            for (BaseHero hero : TeamTwo) {
+//                System.out.print(hero.name + ": ");
+//                hero.step(TeamOne, TeamTwo);
+//                System.out.println();
+//            }
+
+        Scanner input = new Scanner(System.in);
+        while (true){
+            //allTeam = sortTeam(allTeam);
+            View.view();
+            input.nextLine();
+            TeamOne.forEach(n -> n.step(TeamTwo, TeamOne));
+            TeamTwo.forEach(n -> n.step(TeamOne, TeamTwo));
+
+//            for (BaseHero human: allTeam) {
+//                if (TeamOne.contains(human)) human.step(TeamTwo, TeamOne);
+//                else human.step(TeamOne, TeamTwo);
+//            }
+            if (!BaseHero.checkTeamHp(TeamOne)) {
+                View.view();
+                System.out.println("WINNER - TEAM TWO");
+                break;
+            }
+            if (!BaseHero.checkTeamHp(TeamTwo)) {
+                View.view();
+                System.out.println("WINNER - TEAM ONE");
+                break;
             }
 
-            System.out.println();
-            System.out.println("-----Team 2-----");
-            for (BaseHero hero : TeamTwo) {
-                System.out.print(hero.name + ": ");
-                hero.step(TeamOne, TeamTwo);
-                System.out.println();
-            }
             TeamOne.forEach(n -> {if (!n.state.equals("dead")) n.state = "standBy";});
             TeamTwo.forEach(n -> {if (!n.state.equals("dead")) n.state = "standBy";});
 
             sortTeam(TeamOne);
             sortTeam(TeamTwo);
 
-            round++;
+
+            //round++;
         }
     }
 

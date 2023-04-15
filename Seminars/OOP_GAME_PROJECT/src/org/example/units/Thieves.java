@@ -33,17 +33,13 @@ public abstract class Thieves extends BaseHero{
         int [] cellToChoose = new int[2];
         double minDistance = Math.sqrt(Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2));
         ArrayList<int []> newPositions = new ArrayList<>();
-        if (this.team == 1) {
-            if (this.x + 1 < 10) newPositions.add(new int[]{this.x + 1, this.y});
-        }
-        else {
-            if (this.x - 1 > -1) newPositions.add(new int[]{this.x - 1, this.y});
-        }
-        if (this.y + 1 < 10) newPositions.add(new int[]{this.x, this.y + 1});
-        if (this.y - 1 > -1) newPositions.add(new int[]{this.x, this.y - 1});
+        if (this.x + 1 < 10 && checkIfEmpty(this.x + 1, this.y, Main.allTeam)) newPositions.add(new int[]{this.x + 1, this.y});
+        if (this.x - 1 > -1 && checkIfEmpty(this.x - 1, this.y, Main.allTeam)) newPositions.add(new int[]{this.x - 1, this.y});
+        if (this.y + 1 < 10 && checkIfEmpty(this.x, this.y + 1, Main.allTeam)) newPositions.add(new int[]{this.x, this.y + 1});
+        if (this.y - 1 > -1 && checkIfEmpty(this.x, this.y - 1, Main.allTeam)) newPositions.add(new int[]{this.x, this.y - 1});
         for (int[] pos: newPositions) {
-            if (checkIfEmpty(pos[0], pos[1], Main.allTeam) &&
-                    Math.sqrt(Math.pow(enemy.x - pos[0], 2) + Math.pow(enemy.y - pos[1], 2)) < minDistance) {
+            if (Math.sqrt(Math.pow(enemy.x - pos[0], 2) + Math.pow(enemy.y - pos[1], 2)) < minDistance) {
+                minDistance = Math.sqrt(Math.pow(enemy.x - pos[0], 2) + Math.pow(enemy.y - pos[1], 2));
                 cellToChoose[0] = pos[0];
                 cellToChoose[1] = pos[1];
             }

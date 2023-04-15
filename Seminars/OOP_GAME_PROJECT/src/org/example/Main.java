@@ -20,18 +20,18 @@ public class Main {
 //        TeamTwo.forEach(n -> System.out.println(n.getInfo()));
 //        System.out.println();
 
-        //GameInterface.LetTheGameStart(TeamOne, TeamTwo);
+        GameInterface.LetTheGameStart(TeamOne, TeamTwo);
 
-        Scanner input = new Scanner(System.in);
-        while (true){
-            allTeam = sortTeam(allTeam);
-            View.view();
-            input.nextLine();
-            for (BaseHero human: allTeam) {
-                if (TeamOne.contains(human)) human.step(TeamTwo, TeamOne);
-                else human.step(TeamOne, TeamTwo);
-            }
-        }
+//        Scanner input = new Scanner(System.in);
+//        while (true){
+//            allTeam = sortTeam(allTeam);
+//            View.view();
+//            input.nextLine();
+//            for (BaseHero human: allTeam) {
+//                if (TeamOne.contains(human)) human.step(TeamTwo, TeamOne);
+//                else human.step(TeamOne, TeamTwo);
+//            }
+//        }
 
         //
         // View.view();
