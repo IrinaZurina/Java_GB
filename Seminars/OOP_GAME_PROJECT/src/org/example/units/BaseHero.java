@@ -43,7 +43,7 @@ public abstract class BaseHero implements GameInterface, Coordinates {
     public void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam) {}
 
     @Override
-    public String getInfo() {return name + " - " + class_name + " - hp|броня " + hp + "|" + armor +
+    public String getInfo() {return name + " - " + class_name + " - hp|броня " + Math.round(hp) + "|" + armor +
             " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];}
 
     @Override

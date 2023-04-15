@@ -20,14 +20,12 @@ public abstract class Shooter extends BaseHero{
 
     @Override
     public String getInfo() {
-        return name + " - " + class_name + " - hp|броня " + hp + "|" + armor + " Стрелы:" + arrows +
+        return name + " - " + class_name + " - hp|броня " + Math.round(hp) + "|" + armor + " - Стрелы:" + arrows +
                 " - Позиция: "+getSelfPosition()[0] + ";" + getSelfPosition()[1];
     }
 
     protected void shoot(BaseHero enemy){
         enemy.getDamage((float) (new Random().nextInt(this.damage[0], this.damage[1]) * accuracy) /100);
-//        System.out.println("Shoot!");
-//        System.out.println(enemy.getInfo());
         this.state = "busy";
     }
 
@@ -47,6 +45,5 @@ public abstract class Shooter extends BaseHero{
                 }
             }
         }
-//        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");
     }
 }
