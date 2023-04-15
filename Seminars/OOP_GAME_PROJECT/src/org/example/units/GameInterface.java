@@ -53,7 +53,6 @@ public interface GameInterface {
     }
 
     static ArrayList<BaseHero> sortTeam(ArrayList<BaseHero> team){
-        //int minPace = team.get(0).pace;
         for (int j = 0; j < team.size(); j++) {
             for (int i = 1; i < team.size(); i++) {
                 if (team.get(i).pace < team.get(i-1).pace) Collections.swap(team, i - 1, i);
@@ -64,45 +63,18 @@ public interface GameInterface {
         }
         return team;
     }
-
     void step(ArrayList<BaseHero> enemyTeam, ArrayList<BaseHero> friendlyTeam);
     String getInfo();
     float getHp();
     void getDamage(float damage);
 
-
-
     static void LetTheGameStart(ArrayList<BaseHero> TeamOne, ArrayList<BaseHero> TeamTwo){
-//        int round = 1;
-//        while (round == 1) {  // ПОМЕНЯТЬ УСЛОВИЕ ВЫХОДА ИЗ ИГРЫ!!!
-//            System.out.println("----------ROUND " + round + "----------");
-//            System.out.println("-----Team 1-----");
-//            for (BaseHero hero : TeamOne) {
-//                System.out.print(hero.name + ": ");
-//                hero.step(TeamTwo, TeamOne);
-//                System.out.println();
-//            }
-//
-//            System.out.println();
-//            System.out.println("-----Team 2-----");
-//            for (BaseHero hero : TeamTwo) {
-//                System.out.print(hero.name + ": ");
-//                hero.step(TeamOne, TeamTwo);
-//                System.out.println();
-//            }
-
         Scanner input = new Scanner(System.in);
         while (true){
-            //allTeam = sortTeam(allTeam);
             View.view();
             input.nextLine();
             TeamOne.forEach(n -> n.step(TeamTwo, TeamOne));
             TeamTwo.forEach(n -> n.step(TeamOne, TeamTwo));
-
-//            for (BaseHero human: allTeam) {
-//                if (TeamOne.contains(human)) human.step(TeamTwo, TeamOne);
-//                else human.step(TeamOne, TeamTwo);
-//            }
             if (!BaseHero.checkTeamHp(TeamOne)) {
                 View.view();
                 System.out.println("WINNER - TEAM TWO");
@@ -119,9 +91,6 @@ public interface GameInterface {
 
             sortTeam(TeamOne);
             sortTeam(TeamTwo);
-
-
-            //round++;
         }
     }
 

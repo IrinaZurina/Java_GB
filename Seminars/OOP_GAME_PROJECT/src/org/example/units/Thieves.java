@@ -57,6 +57,5 @@ public abstract class Thieves extends BaseHero{
             }
         }
     }
-//        System.out.println(this.class_name + " " + this.name + " осталось " + this.arrows + " стрел");
 }
 
